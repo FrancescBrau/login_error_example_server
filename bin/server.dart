@@ -61,6 +61,13 @@ void main() async {
     final body = await request.readAsString();
     final Map<String, dynamic> data = jsonDecode(body);
 
+    if (body.isEmpty) {
+      return Response(
+        400,
+        body: jsonEncode({'message': 'Data to register is required'}),
+      );
+    }
+
     final String? username = data['username'];
     final String? password = data['password'];
 
