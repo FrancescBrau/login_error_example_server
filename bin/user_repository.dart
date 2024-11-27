@@ -4,14 +4,14 @@ import 'dart:io';
 import 'user.dart';
 
 class UserRepository {
-  final String dataFilePath;
+  final String _dataFilePath;
   late List<User> _users;
 
-  UserRepository({required this.dataFilePath});
+  UserRepository({required String dataFilePath}) : _dataFilePath = dataFilePath;
 
   /// Initialisiert die JSON-Datei und lädt die Benutzer in den Speicher
   Future<void> initialize() async {
-    final file = File(dataFilePath);
+    final file = File(_dataFilePath);
     if (!await file.exists()) {
       await file.writeAsString(jsonEncode([]));
     }
@@ -31,7 +31,7 @@ class UserRepository {
 
   /// Speichert die Benutzerliste zurück in die Datei
   Future<void> _persist() async {
-    final file = File(dataFilePath);
+    final file = File(_dataFilePath);
     final List<Map<String, dynamic>> userMaps = [];
     for (final user in _users) {
       userMaps.add(user.toMap());

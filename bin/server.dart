@@ -23,8 +23,10 @@ void main() async {
 
     // 400 Bad Request: Username ist erforderlich
     if (username == null || username.isEmpty) {
-      return Response(400,
-          body: jsonEncode({'message': 'Username is required'}));
+      return Response(
+        400,
+        body: jsonEncode({'message': 'Username is required'}),
+      );
     }
 
     // Überprüfung auf Benutzerexistenz
@@ -33,8 +35,10 @@ void main() async {
       return Response.ok(jsonEncode({'message': 'Login successful'}));
     } else {
       // 401 Unauthorized: Ungültige Anmeldedaten
-      return Response(401,
-          body: jsonEncode({'message': 'Invalid credentials'}));
+      return Response(
+        401,
+        body: jsonEncode({'message': 'Invalid credentials'}),
+      );
     }
   });
 
@@ -47,15 +51,19 @@ void main() async {
 
     // 400 Bad Request: Username ist erforderlich
     if (username == null || username.isEmpty) {
-      return Response(400,
-          body: jsonEncode({'message': 'Username is required'}));
+      return Response(
+        400,
+        body: jsonEncode({'message': 'Username is required'}),
+      );
     }
 
     // Überprüfung, ob der Benutzername bereits existiert
     if (userRepository.usernameExists(username)) {
       // 409 Conflict: Benutzername bereits vergeben
-      return Response(409,
-          body: jsonEncode({'message': 'User already exists'}));
+      return Response(
+        409,
+        body: jsonEncode({'message': 'User already exists'}),
+      );
     }
 
     // Benutzer hinzufügen
@@ -63,8 +71,10 @@ void main() async {
       await userRepository.addUser(username, password);
     } catch (e) {
       // 500 Internal Server Error: Unerwarteter Fehler beim Hinzufügen des Benutzers
-      return Response(500,
-          body: jsonEncode({'message': 'Internal Server Error'}));
+      return Response(
+        500,
+        body: jsonEncode({'message': 'Internal Server Error'}),
+      );
     }
 
     // 200 OK: Benutzer erfolgreich registriert
