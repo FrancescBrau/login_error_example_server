@@ -13,6 +13,21 @@ void main() async {
 
   final app = Router();
 
+  app.get('/', (Request request) async {
+    String info = '''
+    Welcome to the User Management Server!
+
+    Available endpoints:
+    - POST /register : Register a new user with a username and password.
+    - POST /login    : Login with your username and password.
+
+    Example usage:
+    - Register: curl -X POST http://0.0.0.0:8080/register -H "Content-Type: application/json" -d '{"username": "testuser", "password": "mypassword"}'
+    - Login:    curl -X POST http://0.0.0.0:8080/login -H "Content-Type: application/json" -d '{"username": "testuser", "password": "mypassword"}'
+    ''';
+    return Response.ok(info, headers: {'Content-Type': 'text/plain'});
+  });
+
   // Routen definieren
   app.post('/login', (Request request) async {
     final body = await request.readAsString();
